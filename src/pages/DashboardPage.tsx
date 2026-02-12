@@ -10,10 +10,13 @@ import WeekView from "../components/WeekView";
 import MonthView from "../components/MonthView";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
+import LanguageSwitcher from "../components/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const DashboardPage: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [viewType, setViewType] = useState<ViewType>("day");
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -168,7 +171,7 @@ const DashboardPage: React.FC = () => {
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}
           >
             <h3 className="text-sm font-bold text-[#E1D9BC] uppercase tracking-wider">
-              View Mode
+              {t("dashboard.viewMode")}
             </h3>
             <div
               style={{ display: "flex", flexDirection: "column", gap: "12px" }}
@@ -184,7 +187,7 @@ const DashboardPage: React.FC = () => {
                   border: viewType === "day" ? "2px solid #30364F" : "none",
                 }}
               >
-                Day View
+                {t("dashboard.viewDay")}
               </button>
               <button
                 onClick={() => setViewType("week")}
@@ -197,7 +200,7 @@ const DashboardPage: React.FC = () => {
                   border: viewType === "week" ? "2px solid #30364F" : "none",
                 }}
               >
-                Week View
+                {t("dashboard.viewWeek")}
               </button>
               <button
                 onClick={() => setViewType("month")}
@@ -210,7 +213,7 @@ const DashboardPage: React.FC = () => {
                   border: viewType === "month" ? "2px solid #30364F" : "none",
                 }}
               >
-                Month View
+                {t("dashboard.viewMonth")}
               </button>
             </div>
           </div>
@@ -219,7 +222,7 @@ const DashboardPage: React.FC = () => {
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}
           >
             <h3 className="text-sm font-bold text-[#E1D9BC] uppercase tracking-wider">
-              Filter by Group
+              {t("dashboard.filterByGroup")}
             </h3>
             <select
               id="group-select"
@@ -229,7 +232,9 @@ const DashboardPage: React.FC = () => {
               }
               className="w-full px-4 py-3 bg-white border-2 border-[#ACBAC4] rounded-lg focus:ring-2 focus:ring-[#E1D9BC] focus:border-[#ACBAC4] outline-none text-base text-gray-900"
             >
-              <option value="">My Group ({user?.group.name})</option>
+              <option value="">
+                {t("dashboard.myGroup")} ({user?.group.name})
+              </option>
               {groups.map((group) => (
                 <option key={group.ID} value={group.ID}>
                   {group.Name}
@@ -240,6 +245,16 @@ const DashboardPage: React.FC = () => {
         </div>
 
         <div
+          className="px-6 py-4 border-t border-[#ACBAC4]"
+          style={{ padding: "16px 24px", borderTop: "2px solid #ACBAC4" }}
+        >
+          <h3 className="text-sm font-bold text-[#E1D9BC] uppercase tracking-wider mb-3">
+            {t("common.language")}
+          </h3>
+          <LanguageSwitcher variant="dark" />
+        </div>
+
+        <div
           className="p-6 border-t border-[#ACBAC4]"
           style={{ padding: "24px", borderTop: "2px solid #ACBAC4" }}
         >
@@ -247,7 +262,7 @@ const DashboardPage: React.FC = () => {
             onClick={handleLogout}
             className="w-full px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all font-semibold text-base shadow-lg"
           >
-            Logout
+            {t("dashboard.logout")}
           </button>
         </div>
       </aside>
