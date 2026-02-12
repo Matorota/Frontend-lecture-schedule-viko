@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 import { apiService } from "../services/api";
 import type { Group } from "../types";
 
@@ -19,6 +21,7 @@ const RegisterPage: React.FC = () => {
 
   const { register } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -37,7 +40,7 @@ const RegisterPage: React.FC = () => {
     setError("");
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t("register.errorPasswordMismatch"));
       return;
     }
 
@@ -53,7 +56,7 @@ const RegisterPage: React.FC = () => {
       navigate("/dashboard");
     } catch (err: any) {
       setError(
-        err.response?.data?.message || "Registration failed. Please try again."
+        err.response?.data?.message || t("register.errorRegistrationFailed")
       );
     } finally {
       setLoading(false);
@@ -66,14 +69,18 @@ const RegisterPage: React.FC = () => {
         className="w-full max-w-lg"
         style={{ display: "flex", flexDirection: "column", gap: "32px" }}
       >
+        <div className="flex justify-center">
+          <LanguageSwitcher />
+        </div>
+
         <div
           className="text-center"
           style={{ display: "flex", flexDirection: "column", gap: "16px" }}
         >
           <h1 className="text-6xl font-bold text-white drop-shadow-lg">
-            VIKO Lectures
+            {t("register.title")}
           </h1>
-          <p className="text-2xl text-[#E1D9BC]">Create your account</p>
+          <p className="text-2xl text-[#E1D9BC]">{t("register.subtitle")}</p>
         </div>
 
         {error && (
@@ -91,7 +98,7 @@ const RegisterPage: React.FC = () => {
               htmlFor="username"
               className="block text-xl font-bold text-white"
             >
-              Username
+              {t("register.username")}
             </label>
             <input
               id="username"
@@ -100,7 +107,7 @@ const RegisterPage: React.FC = () => {
               onChange={(e) => setUsername(e.target.value)}
               required
               className="w-full px-7 py-6 bg-white border-2 border-[#30364F] rounded-lg focus:ring-2 focus:ring-[#E1D9BC] focus:border-[#30364F] outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 text-xl"
-              placeholder="Choose a username"
+              placeholder={t("register.usernamePlaceholder")}
             />
           </div>
 
@@ -118,7 +125,7 @@ const RegisterPage: React.FC = () => {
                 htmlFor="firstName"
                 className="block text-xl font-bold text-white"
               >
-                First Name
+                {t("register.firstName")}
               </label>
               <input
                 id="firstName"
@@ -127,7 +134,7 @@ const RegisterPage: React.FC = () => {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
                 className="w-full px-7 py-6 bg-white border-2 border-[#30364F] rounded-lg focus:ring-2 focus:ring-[#E1D9BC] focus:border-[#30364F] outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 text-xl"
-                placeholder="First name"
+                placeholder={t("register.firstNamePlaceholder")}
               />
             </div>
             <div
@@ -137,7 +144,7 @@ const RegisterPage: React.FC = () => {
                 htmlFor="lastName"
                 className="block text-xl font-bold text-white"
               >
-                Last Name
+                {t("register.lastName")}
               </label>
               <input
                 id="lastName"
@@ -146,7 +153,7 @@ const RegisterPage: React.FC = () => {
                 onChange={(e) => setLastName(e.target.value)}
                 required
                 className="w-full px-7 py-6 bg-white border-2 border-[#30364F] rounded-lg focus:ring-2 focus:ring-[#E1D9BC] focus:border-[#30364F] outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 text-xl"
-                placeholder="Last name"
+                placeholder={t("register.lastNamePlaceholder")}
               />
             </div>
           </div>
@@ -156,7 +163,7 @@ const RegisterPage: React.FC = () => {
               htmlFor="group"
               className="block text-xl font-bold text-white"
             >
-              Student Group
+              {t("register.group")}
             </label>
             <select
               id="group"
@@ -165,7 +172,7 @@ const RegisterPage: React.FC = () => {
               required
               className="w-full px-7 py-6 bg-white border-2 border-[#30364F] rounded-lg focus:ring-2 focus:ring-[#E1D9BC] focus:border-[#30364F] outline-none transition-all duration-200 text-gray-900 cursor-pointer text-xl"
             >
-              <option value={0}>Select your group</option>
+              <option value={0}>{t("register.group")}</option>
               {groups.map((group) => (
                 <option key={group.ID} value={group.ID}>
                   {group.Name}
@@ -179,7 +186,7 @@ const RegisterPage: React.FC = () => {
               htmlFor="password"
               className="block text-xl font-bold text-white"
             >
-              Password
+              {t("register.password")}
             </label>
             <div className="relative">
               <input
@@ -189,7 +196,7 @@ const RegisterPage: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full px-7 py-6 bg-white border-2 border-[#30364F] rounded-lg focus:ring-2 focus:ring-[#E1D9BC] focus:border-[#30364F] outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 pr-16 text-xl"
-                placeholder="Choose a password"
+                placeholder={t("register.passwordPlaceholder")}
               />
               <button
                 type="button"
@@ -235,7 +242,7 @@ const RegisterPage: React.FC = () => {
               htmlFor="confirmPassword"
               className="block text-xl font-bold text-white"
             >
-              Confirm Password
+              {t("register.confirmPassword")}
             </label>
             <input
               id="confirmPassword"
@@ -244,7 +251,7 @@ const RegisterPage: React.FC = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
               className="w-full px-7 py-6 bg-white border-2 border-[#30364F] rounded-lg focus:ring-2 focus:ring-[#E1D9BC] focus:border-[#30364F] outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 text-xl"
-              placeholder="Confirm your password"
+              placeholder={t("register.confirmPasswordPlaceholder")}
             />
           </div>
 
@@ -276,10 +283,10 @@ const RegisterPage: React.FC = () => {
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   ></path>
                 </svg>
-                Creating account...
+                {t("register.loading")}
               </span>
             ) : (
-              "Get started"
+              t("register.submit")
             )}
           </button>
         </form>
@@ -289,19 +296,19 @@ const RegisterPage: React.FC = () => {
           style={{ display: "flex", flexDirection: "column", gap: "16px" }}
         >
           <p className="text-lg text-white">
-            Already have an account?{" "}
+            {t("register.alreadyHaveAccount")}{" "}
             <Link
               to="/login"
               className="font-bold text-[#E1D9BC] hover:text-white transition-colors underline"
             >
-              Log in
+              {t("register.signIn")}
             </Link>
           </p>
           <Link
             to="/"
             className="block text-lg text-[#E1D9BC] hover:text-white transition-colors font-semibold"
           >
-            Back to welcome page
+            {t("register.backToWelcome")}
           </Link>
         </div>
       </div>

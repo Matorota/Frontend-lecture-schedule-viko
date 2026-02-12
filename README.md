@@ -2,6 +2,15 @@
 
 Lecture schedule management system for VIKO college students.
 
+## Features
+
+- 🌍 **Multi-language Support** - English and Lithuanian (default: English)
+- 📅 **Multiple Views** - Day, Week, and Month calendar views
+- 👥 **Group Management** - Filter lectures by student groups
+- 🔒 **Secure Authentication** - User registration and login
+- 🔔 **Push Notifications** - Firebase Cloud Messaging integration
+- 📱 **Responsive Design** - Works on desktop and mobile devices
+
 ## Setup
 
 1. Install dependencies:
@@ -42,10 +51,24 @@ proxy: {
 
 ## Usage
 
-1. Register with your student information and select your group
-2. Login to access your schedule
-3. View lectures by day, week, or month
-4. Filter by different student groups
+1. **Select Language** - Choose between English and Lithuanian on the welcome page
+2. **Register** - Create an account with your student information and select your group
+3. **Login** - Access your personalized schedule
+4. **View Schedule** - Browse lectures by day, week, or month
+5. **Switch Groups** - Filter by different student groups if needed
+
+## Language Support
+
+The application supports:
+
+- 🇬🇧 English (default)
+- 🇱🇹 Lithuanian (Lietuvių kalba)
+
+Language preference is saved automatically. See [LANGUAGE_SETUP.md](LANGUAGE_SETUP.md) for developer documentation.
+
+## Environment Variables
+
+See [ENV_SETUP.md](ENV_SETUP.md) for detailed information on setting up environment variables for Firebase and API configuration.
 
 ## Build
 

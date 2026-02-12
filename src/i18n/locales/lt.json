@@ -1,0 +1,102 @@
+{
+  "welcome": {
+    "title": "VIKO Paskaitos",
+    "subtitle": "Jūsų Tvarkaraštis, Supaprastintas",
+    "description": "Prieikite prie savo paskaitų tvarkaraščio bet kada ir bet kur. Būkite organizuoti ir niekada nepraleiskite pamokos.",
+    "login": "Prisijungti",
+    "register": "Pradėti"
+  },
+  "login": {
+    "title": "VIKO Paskaitos",
+    "subtitle": "Sveiki sugrįžę",
+    "username": "Vartotojo vardas",
+    "password": "Slaptažodis",
+    "submit": "Prisijungti",
+    "loading": "Jungiamasi...",
+    "notRegistered": "Dar neužsiregistravote?",
+    "createAccount": "Sukurti paskyrą",
+    "backToWelcome": "Grįžti į pagrindinį puslapį",
+    "usernamePlaceholder": "Įveskite vartotojo vardą",
+    "passwordPlaceholder": "Įveskite slaptažodį",
+    "errorInvalidCredentials": "Neteisingi prisijungimo duomenys. Bandykite dar kartą."
+  },
+  "register": {
+    "title": "VIKO Paskaitos",
+    "subtitle": "Sukurkite paskyrą",
+    "username": "Vartotojo vardas",
+    "password": "Slaptažodis",
+    "confirmPassword": "Patvirtinkite slaptažodį",
+    "firstName": "Vardas",
+    "lastName": "Pavardė",
+    "email": "El. paštas",
+    "group": "Pasirinkite grupę",
+    "submit": "Sukurti paskyrą",
+    "loading": "Kuriama paskyra...",
+    "alreadyHaveAccount": "Jau turite paskyrą?",
+    "signIn": "Prisijungti",
+    "backToWelcome": "Grįžti į pagrindinį puslapį",
+    "usernamePlaceholder": "Pasirinkite vartotojo vardą",
+    "passwordPlaceholder": "Pasirinkite slaptažodį",
+    "confirmPasswordPlaceholder": "Patvirtinkite slaptažodį",
+    "firstNamePlaceholder": "Jūsų vardas",
+    "lastNamePlaceholder": "Jūsų pavardė",
+    "emailPlaceholder": "Jūsų el. pašto adresas",
+    "errorPasswordMismatch": "Slaptažodžiai nesutampa",
+    "errorRegistrationFailed": "Registracija nepavyko. Bandykite dar kartą."
+  },
+  "dashboard": {
+    "title": "Mano Tvarkaraštis",
+    "welcome": "Sveiki",
+    "logout": "Atsijungti",
+    "viewDay": "Diena",
+    "viewWeek": "Savaitė",
+    "viewMonth": "Mėnuo",
+    "noLectures": "Nėra suplanuotų paskaitų",
+    "noLecturesMessage": "Šiuo laikotarpiu neturite suplanuotų paskaitų.",
+    "loading": "Kraunamas tvarkaraštis...",
+    "error": "Nepavyko užkrauti paskaitų"
+  },
+  "lecture": {
+    "room": "Kabinetas",
+    "teacher": "Dėstytojas",
+    "time": "Laikas",
+    "type": {
+      "lecture": "Paskaita",
+      "practice": "Praktika",
+      "lab": "Laboratorinis"
+    }
+  },
+  "days": {
+    "monday": "Pirmadienis",
+    "tuesday": "Antradienis",
+    "wednesday": "Trečiadienis",
+    "thursday": "Ketvirtadienis",
+    "friday": "Penktadienis",
+    "saturday": "Šeštadienis",
+    "sunday": "Sekmadienis"
+  },
+  "months": {
+    "january": "Sausis",
+    "february": "Vasaris",
+    "march": "Kovas",
+    "april": "Balandis",
+    "may": "Gegužė",
+    "june": "Birželis",
+    "july": "Liepa",
+    "august": "Rugpjūtis",
+    "september": "Rugsėjis",
+    "october": "Spalis",
+    "november": "Lapkritis",
+    "december": "Gruodis"
+  },
+  "common": {
+    "language": "Kalba",
+    "theme": "Tema",
+    "settings": "Nustatymai",
+    "save": "Išsaugoti",
+    "cancel": "Atšaukti",
+    "close": "Uždaryti",
+    "error": "Klaida",
+    "success": "Sėkmingai"
+  }
+}

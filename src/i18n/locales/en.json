@@ -1,0 +1,102 @@
+{
+  "welcome": {
+    "title": "VIKO Lectures",
+    "subtitle": "Your Schedule, Simplified",
+    "description": "Access your lecture schedule anytime, anywhere. Stay organized and never miss a class.",
+    "login": "Sign in",
+    "register": "Get started"
+  },
+  "login": {
+    "title": "VIKO Lectures",
+    "subtitle": "Welcome back",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Sign in",
+    "loading": "Logging in...",
+    "notRegistered": "Not registered yet?",
+    "createAccount": "Create an account",
+    "backToWelcome": "Back to welcome page",
+    "usernamePlaceholder": "Enter your username",
+    "passwordPlaceholder": "Enter your password",
+    "errorInvalidCredentials": "Invalid credentials. Please try again."
+  },
+  "register": {
+    "title": "VIKO Lectures",
+    "subtitle": "Create your account",
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "group": "Select your group",
+    "submit": "Create account",
+    "loading": "Creating account...",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "backToWelcome": "Back to welcome page",
+    "usernamePlaceholder": "Choose a username",
+    "passwordPlaceholder": "Choose a password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "firstNamePlaceholder": "Your first name",
+    "lastNamePlaceholder": "Your last name",
+    "emailPlaceholder": "Your email address",
+    "errorPasswordMismatch": "Passwords do not match",
+    "errorRegistrationFailed": "Registration failed. Please try again."
+  },
+  "dashboard": {
+    "title": "My Schedule",
+    "welcome": "Welcome",
+    "logout": "Logout",
+    "viewDay": "Day",
+    "viewWeek": "Week",
+    "viewMonth": "Month",
+    "noLectures": "No lectures scheduled",
+    "noLecturesMessage": "You don't have any lectures scheduled for this period.",
+    "loading": "Loading your schedule...",
+    "error": "Failed to load lectures"
+  },
+  "lecture": {
+    "room": "Room",
+    "teacher": "Teacher",
+    "time": "Time",
+    "type": {
+      "lecture": "Lecture",
+      "practice": "Practice",
+      "lab": "Lab"
+    }
+  },
+  "days": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+  "common": {
+    "language": "Language",
+    "theme": "Theme",
+    "settings": "Settings",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "error": "Error",
+    "success": "Success"
+  }
+}

@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +14,7 @@ const LoginPage: React.FC = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +26,7 @@ const LoginPage: React.FC = () => {
       navigate("/dashboard");
     } catch (err: any) {
       setError(
-        err.response?.data?.message || "Invalid credentials. Please try again."
+        err.response?.data?.message || t("login.errorInvalidCredentials")
       );
     } finally {
       setLoading(false);
@@ -36,14 +39,18 @@ const LoginPage: React.FC = () => {
         className="w-full max-w-md"
         style={{ display: "flex", flexDirection: "column", gap: "32px" }}
       >
+        <div className="flex justify-center">
+          <LanguageSwitcher />
+        </div>
+
         <div
           className="text-center"
           style={{ display: "flex", flexDirection: "column", gap: "16px" }}
         >
           <h1 className="text-6xl font-bold text-white drop-shadow-lg">
-            VIKO Lectures
+            {t("login.title")}
           </h1>
-          <p className="text-2xl text-[#E1D9BC]">Welcome back</p>
+          <p className="text-2xl text-[#E1D9BC]">{t("login.subtitle")}</p>
         </div>
 
         {error && (
@@ -61,7 +68,7 @@ const LoginPage: React.FC = () => {
               htmlFor="username"
               className="block text-xl font-bold text-white"
             >
-              Username
+              {t("login.username")}
             </label>
             <input
               id="username"
@@ -70,7 +77,7 @@ const LoginPage: React.FC = () => {
               onChange={(e) => setUsername(e.target.value)}
               required
               className="w-full px-7 py-6 bg-white border-2 border-[#30364F] rounded-lg focus:ring-2 focus:ring-[#E1D9BC] focus:border-[#30364F] outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 text-xl"
-              placeholder="Enter your username"
+              placeholder={t("login.usernamePlaceholder")}
             />
           </div>
 
@@ -79,7 +86,7 @@ const LoginPage: React.FC = () => {
               htmlFor="password"
               className="block text-xl font-bold text-white"
             >
-              Password
+              {t("login.password")}
             </label>
             <div className="relative">
               <input
@@ -89,7 +96,7 @@ const LoginPage: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full px-7 py-6 bg-white border-2 border-[#30364F] rounded-lg focus:ring-2 focus:ring-[#E1D9BC] focus:border-[#30364F] outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 pr-16 text-xl"
-                placeholder="Enter your password"
+                placeholder={t("login.passwordPlaceholder")}
               />
               <button
                 type="button"
@@ -158,10 +165,10 @@ const LoginPage: React.FC = () => {
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   ></path>
                 </svg>
-                Logging in...
+                {t("login.loading")}
               </span>
             ) : (
-              "Sign in"
+              t("login.submit")
             )}
           </button>
         </form>
@@ -171,19 +178,19 @@ const LoginPage: React.FC = () => {
           style={{ display: "flex", flexDirection: "column", gap: "16px" }}
         >
           <p className="text-lg text-white">
-            Not registered yet?{" "}
+            {t("login.notRegistered")}{" "}
             <Link
               to="/register"
               className="font-bold text-[#E1D9BC] hover:text-white transition-colors underline"
             >
-              Create an account
+              {t("login.createAccount")}
             </Link>
           </p>
           <Link
             to="/"
             className="block text-lg text-[#E1D9BC] hover:text-white transition-colors font-semibold"
           >
-            Back to welcome page
+            {t("login.backToWelcome")}
           </Link>
         </div>
       </div>

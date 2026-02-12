@@ -1,6 +1,5 @@
 import React from "react";
 import EmptyState from "./EmptyState";
-import LectureCard from "./LectureCard";
 
 interface ThemeChangeEvent {
   theme: "Black-Yellow" | "White-Blue" | "Dark-Mode";
