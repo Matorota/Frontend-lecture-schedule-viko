@@ -4,12 +4,6 @@ Lecture schedule management system for VIKO college students.
 
 ## Features
 
-- 🌍 **Multi-language Support** - English and Lithuanian (default: English)
-- 📅 **Multiple Views** - Day, Week, and Month calendar views
-- 👥 **Group Management** - Filter lectures by student groups
-- 🔒 **Secure Authentication** - User registration and login
-- 🔔 **Push Notifications** - Firebase Cloud Messaging integration
-- 📱 **Responsive Design** - Works on desktop and mobile devices
 
 ## Setup
 
