@@ -2,7 +2,6 @@
 
 Lecture schedule management system for VIKO college students.
 
-## Features
 
 
 ## Setup
