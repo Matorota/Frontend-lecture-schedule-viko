@@ -1,5 +1,7 @@
 // Date utility functions
 
+import i18n from "../i18n/config";
+
 export const formatDate = (date: Date): string => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -35,6 +37,31 @@ export const getMonthDates = (date: Date): Date[] => {
   return dates;
 };
 
+// New: build a 6x7 grid for the month (Monday first)
+export const getMonthGrid = (date: Date): Date[][] => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+
+  const firstOfMonth = new Date(year, month, 1);
+  const firstWeekday = firstOfMonth.getDay(); // 0 (Sun) - 6 (Sat)
+  const startOffset = firstWeekday === 0 ? -6 : 1 - firstWeekday; // shift to Monday
+  const gridStart = new Date(firstOfMonth);
+  gridStart.setDate(firstOfMonth.getDate() + startOffset);
+
+  const weeks: Date[][] = [];
+  const cur = new Date(gridStart);
+  for (let w = 0; w < 6; w++) {
+    const week: Date[] = [];
+    for (let d = 0; d < 7; d++) {
+      week.push(new Date(cur));
+      cur.setDate(cur.getDate() + 1);
+    }
+    weeks.push(week);
+  }
+
+  return weeks;
+};
+
 export const getWeekNumber = (date: Date): number => {
   const d = new Date(
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
@@ -46,34 +73,37 @@ export const getWeekNumber = (date: Date): number => {
 };
 
 export const getDayName = (date: Date): string => {
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+  // i18n expects named keys like 'monday', 'tuesday', etc.
+  const dayKeys = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
   ];
-  return days[date.getDay()];
+  const key = dayKeys[date.getDay()] || "sunday";
+  return i18n.t(`days.${key}`) as string;
 };
 
 export const getMonthName = (date: Date): string => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+  const monthKeys = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
   ];
-  return months[date.getMonth()];
+  const key = monthKeys[date.getMonth()] || "january";
+  return i18n.t(`months.${key}`) as string;
 };
 
 export const isToday = (date: Date): boolean => {

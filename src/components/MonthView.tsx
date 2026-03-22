@@ -1,7 +1,7 @@
-// Month View Component
-import React from "react";
+// Month View Component - improved grid layout
+import React, { useMemo } from "react";
 import type { Lecture } from "../types";
-import { getMonthDates, formatDate, isToday } from "../utils/dateUtils";
+import { formatDate, isToday, getDayName } from "../utils/dateUtils";
 
 interface MonthViewProps {
   date: Date;
@@ -14,66 +14,123 @@ const MonthView: React.FC<MonthViewProps> = ({
   lectures,
   onDateClick,
 }) => {
-  const monthDates = getMonthDates(date);
-  const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-  const startDay = firstDayOfMonth.getDay();
+  // Build a 6x7 month grid (Monday-first) containing Date objects
+  const monthGrid = useMemo(() => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
 
-  const getLectureCountForDate = (date: Date): number => {
-    const dateStr = formatDate(date);
-    return lectures.filter((lecture) => lecture.Date === dateStr).length;
+    const firstOfMonth = new Date(year, month, 1);
+    // get Monday of the week that contains the first of month
+    const firstWeekday = firstOfMonth.getDay(); // 0 (Sun) - 6 (Sat)
+    const startOffset = firstWeekday === 0 ? -6 : 1 - firstWeekday; // shift so Monday is start
+    const gridStart = new Date(firstOfMonth);
+    gridStart.setDate(firstOfMonth.getDate() + startOffset);
+
+    const weeks: Date[][] = [];
+    const cur = new Date(gridStart);
+    for (let w = 0; w < 6; w++) {
+      const week: Date[] = [];
+      for (let d = 0; d < 7; d++) {
+        week.push(new Date(cur));
+        cur.setDate(cur.getDate() + 1);
+      }
+      weeks.push(week);
+    }
+    return weeks;
+  }, [date]);
+
+  const headerWeekDays = useMemo(() => {
+    // Use a fixed Monday as reference so localization works for weekday names
+    const refMonday = new Date(2021, 0, 4); // Monday
+    return Array.from({ length: 7 }).map((_, i) =>
+      getDayName(
+        new Date(
+          refMonday.getFullYear(),
+          refMonday.getMonth(),
+          refMonday.getDate() + i
+        )
+      )
+    );
+  }, []);
+
+  const getLectureCountForDate = (d: Date) => {
+    const ds = formatDate(d);
+    return lectures.filter((l) => l.Date === ds).length;
   };
 
-  const paddingDays = Array(startDay).fill(null);
-
   return (
-    <div className="bg-white rounded-lg shadow-lg p-10">
-      <div className="grid grid-cols-7 gap-4">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-          <div
-            key={day}
-            className="text-center font-semibold text-gray-700 p-3"
-          >
-            {day}
-          </div>
-        ))}
+    <div className="p-4">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="grid grid-cols-7 bg-gray-100 text-sm text-center font-medium text-gray-700 py-2">
+          {headerWeekDays.map((wd, idx) => (
+            <div key={idx} className="px-2">
+              {wd}
+            </div>
+          ))}
+        </div>
 
-        {paddingDays.map((_, index) => (
-          <div key={`padding-${index}`} className="p-3"></div>
-        ))}
+        <div className="p-4 grid gap-2">
+          {monthGrid.map((week, wi) => (
+            <div key={wi} className="grid grid-cols-7 gap-2">
+              {week.map((day) => {
+                const inMonth = day.getMonth() === date.getMonth();
+                const today = isToday(day);
+                const count = getLectureCountForDate(day);
 
-        {monthDates.map((monthDate) => {
-          const lectureCount = getLectureCountForDate(monthDate);
-          const today = isToday(monthDate);
+                return (
+                  <button
+                    key={day.toISOString()}
+                    onClick={() => onDateClick(day)}
+                    className={`h-24 flex flex-col justify-between p-3 rounded-lg border transition shadow-sm text-left ${
+                      inMonth
+                        ? "bg-white border-gray-200 hover:shadow-md"
+                        : "bg-gray-50 border-transparent text-gray-400"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div
+                        className={`text-sm font-semibold ${
+                          today ? "text-[#30364F]" : "text-gray-800"
+                        }`}
+                      >
+                        {day.getDate()}
+                      </div>
+                      {today && (
+                        <span className="text-xs bg-[#E1D9BC] text-[#30364F] px-2 py-0.5 rounded-full">
+                          Today
+                        </span>
+                      )}
+                    </div>
 
-          return (
-            <button
-              key={monthDate.toISOString()}
-              onClick={() => onDateClick(monthDate)}
-              className={`p-4 rounded-lg border transition-all hover:shadow-md ${
-                today
-                  ? "bg-blue-100 border-blue-400 font-bold"
-                  : "bg-gray-50 border-gray-200 hover:bg-gray-100"
-              }`}
-            >
-              <div className="text-center">
-                <p
-                  className={`text-lg ${
-                    today ? "text-blue-700" : "text-gray-800"
-                  }`}
-                >
-                  {monthDate.getDate()}
-                </p>
-                {lectureCount > 0 && (
-                  <div className="flex justify-center mt-2">
-                    <span className="text-xs bg-blue-500 text-white rounded-full px-2 py-0.5">
-                      {lectureCount}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </button>
-          );
-        })}
+                    <div className="flex items-center justify-between">
+                      <div className="flex gap-1 items-center">
+                        {count > 0 ? (
+                          // show up to 3 dots representing events
+                          <div className="flex gap-1">
+                            {Array.from({ length: Math.min(3, count) }).map(
+                              (_, i) => (
+                                <span
+                                  key={i}
+                                  className="w-2 h-2 rounded-full bg-[#F59E0B]"
+                                />
+                              )
+                            )}
+                          </div>
+                        ) : (
+                          <div className="text-xs text-gray-300">&nbsp;</div>
+                        )}
+                      </div>
+
+                      {count > 0 && (
+                        <div className="text-xs text-gray-600">{count}</div>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

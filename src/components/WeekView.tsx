@@ -44,7 +44,7 @@ const WeekView: React.FC<WeekViewProps> = ({ date, lectures }) => {
                     today ? "text-blue-700" : "text-gray-800"
                   }`}
                 >
-                  {getDayName(weekDate).slice(0, 3)}
+                  {getDayName(weekDate)}
                 </h3>
                 <p
                   className={`text-sm ${
